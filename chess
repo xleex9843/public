@@ -1,0 +1,378 @@
+#include<stdio.h>
+#include<windows.h>
+
+int a[9][9]={{0,65,66,67,68,69,70,71,72},{1,-82,-78,-66,-81,-75,-66,-78,-82},{2,-80,-80,-80,-80,-80,-80,-80,-80},{3,0,0,0,0,0,0,0,0},{4,0,0,0,0,0,0,0,0},{5,0,0,0,0,0,0,0,0},{6,0,0,0,0,0,0,0,0},{7,80,80,80,80,80,80,80,80},{8,82,78,66,75,81,66,78,82}};	
+
+int u, h, ch;
+int i, j, gameOver=2, play, alpha_i, alpha_u, car, rac, chess_bd;
+void prt();
+void Rook();
+void knight();
+void bishop();
+void qeen();
+void king();
+void pawn();
+void moveOn();
+void change();
+
+int main ()
+{
+	printf("\n\n\n\n\n\n\n\n\n\n\n\t\t체스 시작\n");
+	printf("\n\t아래쪽 부터 시작합니다.\n");
+	printf("\n\n\n\n\n\n");
+	Sleep(1000);
+	system("cls");
+
+	
+	while(gameOver=2)					//실질적 게임 내용 queen 2개 
+	{	
+		
+		prt();
+		
+		for(play=0; play==0;)			//실행 시 play 사용 
+		{
+			printf("\n움직일 체스 말을 선택 하시오 ");
+			scanf("%c", &alpha_i);
+			scanf("%d", &j);
+			i=alpha_i-64;
+
+			switch(a[j][i])
+			{
+				case 0:
+					printf("\n그 자리에는 체스말이 없습니다.");
+					break;
+				case 82: Rook();
+				case 78: knight();
+				case 66: bishop();
+				case 81: qeen();
+				case 75: king();
+				case 80: pawn(); break;
+				defualt:
+					printf("\n자신의 체스말이 아닙니다.");
+					break;
+			
+			if(play==0)
+			{
+				printf("잘못된 입력값 입니다.");
+			}
+
+			}							
+		}
+		
+		prt();
+		
+		if(gameOver==2)
+		{
+			break;
+		}
+		for(play=0; play==0;)
+		{
+			printf("\n움직일 체스 말을 선택 하시오 ");
+			scanf("%c", &alpha_i);
+			scanf("%d", &j);
+			i=alpha_i-64;
+			
+			switch(-a[j][i])
+			{
+				case 0:
+					printf("\n그 자리에는 체스말이 없습니다.");
+					break;
+				case 82: Rook();
+				case 78: knight();
+				case 66: bishop();
+				case 81: qeen();
+				case 75: king();
+				case 80: pawn(); break;
+				default:
+					printf("\n자신의 체스말이 아닙니다.");
+					break;
+			}				
+		
+			if(play==0)
+			{
+				printf("잘못된 입력값 입니다.");
+			}
+			
+		}
+	}
+
+	
+	
+	return 0; 
+	
+}
+
+void prt()
+{
+	system("cls");
+	
+		for(i=0; i<9; i++)			//체스판 출력 하기
+		{
+			for(j=0; j<9; j++)
+			{
+				
+				if(a[i][j]==75)
+				{
+					gameOver++;
+				}
+				
+				if(a[i][j]>64)
+				{
+					printf("%c\t",a[i][j]);
+				}
+				else if(a[i][j]<-64)
+				{	
+					printf("%c\t",-a[i][j]);
+				}
+				else if(a[i][j]==0)
+				{
+					printf("\t");
+				}
+				else  
+				{
+					printf("%d\t",a[i][j]);
+				}
+				
+				if(j==8)
+				{
+					printf("\n");
+				}
+				
+			}
+		printf("\n\n\n");
+		}
+}
+
+void moveOn()
+{
+	a[h][u]=a[j][i];
+	a[j][i]=0;
+	play++;
+}
+void Rook()
+{
+	for(chess_bd=0;chess_bd==0;)
+	{
+	printf("\n이동할 위치를 입력해주세요");
+	
+	scanf("%c", &alpha_u);
+	scanf("%d", &h);
+	u=alpha_u-64;
+	
+		if(h>0&&h<9&&u>0&&u<9)
+		{
+			chess_bd++;
+		}
+		if(chess_bd==0)
+		{
+			printf("보드를 벗어난 결과 입니다."); 
+		}
+		
+	}
+	if(u==i||h==j)
+	{
+	moveOn();
+	}
+
+}
+void knight()
+{
+	for(chess_bd=0;chess_bd==0;)
+	{
+		
+	printf("\n이동할 위치를 입력해주세요");
+	scanf("%c", &alpha_u);
+	scanf("%d", &h);
+	u=alpha_u-64;
+	
+		if(h>0&&h<9&&u>0&&u<9)
+		{
+			chess_bd++;
+		}
+		if(chess_bd==0)
+		{
+			printf("보드를 벗어난 결과 입니다."); 
+		}
+				
+	}	
+	if((u==i+1||u==i-1)&&(j==h+2||j==h-2))
+	{
+	moveOn();
+	}
+}
+void bishop()
+{
+	for(chess_bd=0;chess_bd==0;)
+	{
+		
+	printf("\n이동할 위치를 입력해주세요");
+	scanf("%c", &alpha_u);
+	scanf("%d", &h);
+	u=alpha_u-64;
+	
+		if(h>0&&h<9&&u>0&&u<9)
+		{
+			chess_bd++;
+		}
+		if(chess_bd==0)
+		{
+			printf("보드를 벗어난 결과 입니다.");
+		}
+				
+	}
+	
+	car=u-i;
+	rac=h-j;
+	if(car==rac||car==-rac)
+	{
+	moveOn();
+	}
+}
+void qeen()
+{
+	for(chess_bd=0;chess_bd==0;)
+	{
+		
+	printf("\n이동할 위치를 입력해주세요");
+	scanf("%c", &alpha_u);
+	scanf("%d", &h);
+	u=alpha_u-64;
+	
+		if(h>0&&h<9&&u>0&&u<9)
+		{
+			chess_bd++;
+		}
+		if(chess_bd==0)
+		{
+			printf("보드를 벗어난 결과 입니다.");
+		}
+				
+	}	
+	car=u-i;
+	rac=h-j;
+	if((car==rac||car==rac)^(u==i||h==j))
+	{
+	moveOn();
+	}
+}
+void king()
+{
+	for(chess_bd=0;chess_bd==0;)
+	{
+		
+	printf("\n이동할 위치를 입력해주세요");
+	scanf("%c", &alpha_u);
+	scanf("%d", &h);
+	u=alpha_u-64;
+	
+		if(h>0&&h<9&&u>0&&u<9)
+		{
+			chess_bd++;
+		}
+	
+		if(chess_bd==0)
+		{
+			printf("보드를 벗어난 결과 입니다.");
+		}		
+	}	
+	car=u-i;
+	rac=h-j;
+	if(car==1||rac==1||rac==-1||car==-1)
+	{
+	moveOn();
+	}
+}
+void pawn()
+{
+	for(chess_bd=0;chess_bd==0;)
+	{
+		
+	printf("\n이동할 위치를 입력해주세요");
+	scanf("%c", &alpha_u);
+	scanf("%d", &h);
+	u=alpha_u-64;
+	
+		if(h>0&&h<9&&u>0&&u<9)
+		{
+			chess_bd++;
+		}
+	
+		if(chess_bd==0)
+		{
+			printf("보드를 벗어난 결과 입니다.");
+		}	
+	
+		if(a[j][i]<0&&a[h][u]<0)
+		{
+			chess_bd=0;
+			printf("자신의 말은 잡을 수 없습니다.");
+		} else if(a[j][i]>0&&a[h][u]>0)
+		{
+			chess_bd=0;
+			printf("자신의 말은 잡을 수 없습니다.");
+		}
+	}	
+
+	
+	if(a[j][i]==-80)
+	{
+	
+		if(j==3)
+		{
+			if(i==u||i-u==2)
+			{
+				moveOn();
+			}
+			if(i==u||i-u==1)
+			{
+				moveOn();
+			}
+		}
+		else
+		{
+			if(i==u||i-u==1)
+			{
+				moveOn();
+			}
+		}
+		
+		if(j==8)
+		{
+			change();
+		}
+	}
+
+	if(a[j][i]==80)
+	{
+		if(j==8)
+		{
+			if(i==u||i-u==-2)
+			{
+				moveOn();
+			}
+			if(i==u||i-u==-1)
+			{
+				moveOn();
+			}
+		
+		}
+		else
+		{
+			if(i==u||i-u==-1)
+			{
+				moveOn();
+			}
+		} 
+	
+		if(i==1)
+		{
+			change();
+		}
+
+	}
+}
+void change()
+{
+	scanf("%c",&ch);
+	a[i][j]=ch;
+}
